@@ -49,6 +49,9 @@ def time_filter(uservisit_table,first_day, last_day):
     end_date = datetime.datetime.strptime(last_day, fmt)
     return uservisit_table.filter(lambda x: start_date <= datetime.datetime.strptime(x[2], fmt) <= end_date)
 
+def add_each_element(x, y):
+    return [x[i] + y[i] for i in xrange(len(x))]
+
 if __name__ == "__main__":
 
     sc = SparkContext()

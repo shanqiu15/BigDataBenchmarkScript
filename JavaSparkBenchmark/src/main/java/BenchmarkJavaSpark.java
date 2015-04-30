@@ -1,5 +1,5 @@
 /**
- * $SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1-SNAPSHOT-jar-with-dependencies.jar amplab/text/tiny/rankings amplab/text/tiny/uservisits 50 1980-01-01 1980-04-01
+ * $SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1-SNAPSHOT-jar-with-dependencies.jar amplab/text/tiny/rankings amplab/text/tiny/uservisits 100 0 9  1980-01-01 1990-01-01
  * 
  * */
 
@@ -48,7 +48,7 @@ public class BenchmarkJavaSpark {
 								.parseInt(args[2]);
 					}
 				});
-
+		// resultRDD.count();
 		System.out.println("10 first results: ");
 		for (String[] line : resultRDD.take(10)) {
 			System.out.println(line[0] + " " + line[1] + " " + line[2]);
@@ -64,7 +64,9 @@ public class BenchmarkJavaSpark {
 					public Tuple2<String, Double> call(String[] s)
 							throws Exception {
 						// TODO Auto-generated method stub
-						return new Tuple2(s[0].substring(0, 9), Double
+						return new Tuple2(s[0].substring(
+								Integer.parseInt(args[3]),
+								Integer.parseInt(args[4])), Double
 								.parseDouble(s[3]));
 					}
 				});
@@ -75,6 +77,7 @@ public class BenchmarkJavaSpark {
 						return x + y;
 					}
 				});
+		// aggregationResult.count();
 
 		System.out.println("Aggregation of records:");
 		for (Tuple2<String, Double> line : aggregationResult.take(10)) {
@@ -85,8 +88,8 @@ public class BenchmarkJavaSpark {
 
 		// Java Spark Join Query
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		final Date start_date = format.parse(args[3]);
-		final Date end_date = format.parse(args[4]);
+		final Date start_date = format.parse(args[5]);
+		final Date end_date = format.parse(args[6]);
 		long JoinQueryStartTime = System.nanoTime();
 		JavaRDD<String[]> visitRDD = uservisitTable
 				.filter(new Function<String[], Boolean>() {
@@ -161,7 +164,7 @@ public class BenchmarkJavaSpark {
 		JavaPairRDD<Double, Tuple2<Double, String>> sortingResult = result
 				.sortByKey(false);
 
-		System.out.println("Here are some examples:");
+		// System.out.println("Here are some examples:");
 		for (Tuple2<Double, Tuple2<Double, String>> line : sortingResult
 				.take(1)) {
 			System.out.println(line._2._2 + " " + line._1 + " " + line._2._1);
@@ -171,8 +174,9 @@ public class BenchmarkJavaSpark {
 
 		System.out.println("The scan query running time: "
 				+ ScanQueryRunningTime + "s");
-		System.out.println("The scan query running time: "
-				+ AggregationQueryRunningTime + "s");
+		System.out
+				.println("The AggregationQueryRunningTime query running time: "
+						+ AggregationQueryRunningTime + "s");
 		System.out.println("The join query running time: "
 				+ JoinQueryRunningTime + "s");
 	}

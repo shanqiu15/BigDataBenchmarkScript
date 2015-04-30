@@ -5,8 +5,6 @@
  * mvn assembly:assembly  
  * */
 
-import java.util.Arrays;
-
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -15,6 +13,8 @@ import org.codehaus.commons.compiler.IExpressionEvaluator;
 
 public class JavaScan {
 	public static void main(String[] args) throws Exception {
+		final String[] janinoExp = { "-pn", "x", "-pt", "int", "x > 50" };
+
 		SparkConf conf = new SparkConf().setAppName("Java_Spark");
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		JavaRDD<String> lines = sc.textFile(args[0]);
@@ -25,18 +25,17 @@ public class JavaScan {
 				return s.split(",");
 			}
 		});
-		StringExpression exp = new StringExpression(Arrays.copyOfRange(args, 2,
-				7));
+		StringExpression exp = new StringExpression(janinoExp);
 
 		IExpressionEvaluator ee = exp.getExpression();
 		Class[] parameterTypes = exp.getParameterType();
 		JavaRDD<String[]> resultRDD = rows.filter(new Conditions(ee,
 				parameterTypes, 1));
 
-		System.out.println("Number of records: ");
-		// for (String[] line : resultRDD.take(10)) {
-		// System.out.println(line[0] + " " + line[1] + " " + line[2]);
-		// }
-		System.out.println(resultRDD.count());
+		System.out.println("Samples of result records: ");
+		for (String[] line : resultRDD.take(10)) {
+			System.out.println(line[0] + " " + line[1] + " " + line[2]);
+		}
+		// System.out.println(resultRDD.count());
 	}
 }

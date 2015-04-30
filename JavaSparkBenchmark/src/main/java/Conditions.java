@@ -20,9 +20,9 @@ class Conditions implements Function<String[], Boolean> {
 		Integer s = Conditions.index;
 		Class type = Conditions.paraType;
 		Object[] arguments = new Object[1];
-		System.out.print("*******************************************");
-		System.out.print(x[0]);
-		System.out.print(x[1]);
+		// System.out.print("*******************************************");
+		// System.out.print(x[0]);
+		// System.out.print(x[1]);
 		String value = x[s];
 		arguments[0] = DemoBase.createObject(type, x[s]);
 

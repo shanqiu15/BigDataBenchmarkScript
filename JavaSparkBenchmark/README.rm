@@ -26,9 +26,16 @@ Example:
 $SPARK_HOME/bin/spark-submit --class JavaScan ~/Desktop/JavaSparkBenchmark-0.0.1-SNAPSHOT-jar-with-dependencies.jar hdfs://localhost:8020/tmp/benchmark/text/tiny/rankings 1 -pn "x" -pt "int" "x > 50"
 ```
 '''
-$SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1-SNAPSHOT-jar-with-dependencies.jar amplab/text/tiny/rankings amplab/text/tiny/uservisits 50 1980-01-01 1980-04-01
+$SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1-SNAPSHOT-jar-with-dependencies.jar amplab/text/tiny/rankings amplab/text/tiny/uservisits 100 0 6 1980-01-01 1990-01-01
 '''
 
+'''
+$SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1-SNAPSHOT-jar-with-dependencies.jar amplab/text/amplab-5nodes/text/5nodes/rankings amplab/text/amplab-5nodes/text/5nodes/uservisits 100 0 6  1980-01-01 1990-01-01
+'''
+
+'''
+$SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1-SNAPSHOT-jar-with-dependencies.jar amplab/text/amplab-1node/text/1node/rankings amplab/text/amplab-1node/text/1node/uservisits 100 0 6 1980-01-01 1990-01-01
+'''
 
 
 pom.xml:
@@ -81,4 +88,3 @@ pom.xml:
     </plugins>
   </build>
 </project>
-

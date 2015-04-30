@@ -5,7 +5,7 @@ import datetime
 
 '''
 # spark_query.py file_path column ( < | = | > ) int
-# python SparkQueryBenchmark.py amplab/text/tiny/rankings 50 amplab/text/tiny/uservisits 1 9 1980-01-01 1980-04-01
+# python SparkQueryBenchmark.py amplab/text/tiny/rankings 50 amplab/text/tiny/uservisits 0 9 1980-01-01 1980-04-01
 
 '''
 
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     end_time = time.time()
     scan_execution_time = end_time - start_time
 
-    str_start = int(sys.argv[4]) - 1
+    str_start = int(sys.argv[4])
     str_end = int(sys.argv[5])
     uservisit_input = sc.textFile(sys.argv[3])
     uservisit_table = uservisit_input.map(lambda x: x.split(","))

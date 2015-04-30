@@ -40,7 +40,6 @@ The execution time of the join query is  1286.75840688 s
 ```
 
 
-
 ##########################
 
 ##########JAVA############
@@ -54,7 +53,7 @@ $SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1
 ```
 ******************Tiny*******************
 The scan query running time: 2.109618403s
-The AggregationQueryRunningTime query running time: 1.443105954s
+The aggregation query running time: 1.443105954s
 The join query running time: 0.936174552s
 *****************************************
 ```
@@ -66,7 +65,7 @@ $SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1
 ```
 *****************1 node********************
 The scan query running time: 1.301711854s
-The AggregationQueryRunningTime query running time: 21.601940295s
+The aggregation query running time: 21.601940295s
 The join query running time: 155.154520489s
 *******************************************
 ```
@@ -78,7 +77,7 @@ $SPARK_HOME/bin/spark-submit --class BenchmarkJavaSpark JavaSparkBenchmark-0.0.1
 ```
 ***************5 nodes********************
 The scan query running time: 1.18050955s
-The AggregationQueryRunningTime query running time: 66.838207917s
+The aggregation query running time: 66.838207917s
 The join query running time: 684.924778199s
 ******************************************
 ```

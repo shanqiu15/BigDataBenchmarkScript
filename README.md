@@ -33,9 +33,9 @@ python SparkQueryBenchmark.py amplab/text/amplab-5nodes/text/5nodes/rankings 100
 
 ```
 *****************5 nodes**************
-The execution time of the scan query is  1.40477108955 s
-The execution time of the aggregate query is  140.197244167 s
-The execution time of the join query is  1286.75840688 s
+The execution time of the scan query is  13.1509649754 s
+The execution time of the aggregate query is  150.91179204 s
+The execution time of the join query is  1297.20703197 s
 **************************************
 ```
 
@@ -90,7 +90,7 @@ The join query running time: 684.924778199s
 ############################
 
 ```
-$SPARK_HOME/bin/spark-submit --class ScalaQuery target/scala-2.11/benchmark_scala_2.11-0.0.1.jar amplab/text/tiny/rankings 100 10 amplab/text/tiny/uservisits 0 6 10 1980-01-01 1990-01-01
+$SPARK_HOME/bin/spark-submit --class ScalaQuery target/scala-2.11/benchmark_scala_2.11-0.0.1.jar amplab/text/tiny/rankings 100 amplab/text/tiny/uservisits 0 6 1980-01-01 1990-01-01
 ```
 
 ```
@@ -102,7 +102,7 @@ Join query running time: 2.310737497s
 ```
 
 ```
-$SPARK_HOME/bin/spark-submit --class ScalaQuery target/scala-2.11/benchmark_scala_2.11-0.0.1.jar amplab/text/amplab-1node/text/1node/rankings 100 10 amplab/text/amplab-1node/text/1node/uservisits 0 6 10 1980-01-01 1990-01-01
+$SPARK_HOME/bin/spark-submit --class ScalaQuery target/scala-2.11/benchmark_scala_2.11-0.0.1.jar amplab/text/amplab-1node/text/1node/rankings 100 amplab/text/amplab-1node/text/1node/uservisits 0 6 1980-01-01 1990-01-01
 ```
 
 ```
@@ -115,7 +115,7 @@ Join query running time: 167.660045705s
 
 
 ```
-$SPARK_HOME/bin/spark-submit --class ScalaQuery target/scala-2.11/benchmark_scala_2.11-0.0.1.jar amplab/text/amplab-5nodes/text/5nodes/rankings 100 10 amplab/text/amplab-5nodes/text/5nodes/uservisits 0 6 10 1980-01-01 1990-01-01
+$SPARK_HOME/bin/spark-submit --class ScalaQuery target/scala-2.11/benchmark_scala_2.11-0.0.1.jar amplab/text/amplab-5nodes/text/5nodes/rankings 100 amplab/text/amplab-5nodes/text/5nodes/uservisits 0 6 1980-01-01 1990-01-01
 ```
 
 ```

@@ -26,25 +26,25 @@ object ScalaQuery {
     val scan_query_start = System.nanoTime
     val scan_result = rankingTable.filter(row => row(1).toInt > args(1).toInt)
     //result.foreach(line => println(line.deep.mkString(" ")))
-    scan_result.take(args(2).toInt).foreach(line => println(line.deep.mkString(" ")))
+    println(scan_result.count())
     val scan_query_time = (System.nanoTime - scan_query_start)/1e9
 
     //Aggregation
-    val uservisit_lines = sc.textFile(args(3))
+    val uservisit_lines = sc.textFile(args(2))
     val uservisitsTable = uservisit_lines.map(line => line.split(","))
     val aggregation_query_start = System.nanoTime
-    val pairs = uservisitsTable.map(row => (row(0).substring(args(4).toInt, args(5).toInt), row(3).toDouble))
+    val pairs = uservisitsTable.map(row => (row(0).substring(args(3).toInt, args(4).toInt), row(3).toDouble))
     val aggregation_result = pairs.reduceByKey((x, y) => x + y)
     //result.foreach(line => println(line.deep.mkString(" ")))
-    aggregation_result.take(args(6).toInt).foreach(line => println(line))
+    println(aggregation_result.count())
     val aggregation_query_time = (System.nanoTime - aggregation_query_start)/1e9
 
 
     //Join
     val join_query_start = System.nanoTime
     val format = new java.text.SimpleDateFormat("yyyy-MM-dd")
-    val start_date = format.parse(args(7))
-    val end_date = format.parse(args(8))
+    val start_date = format.parse(args(5))
+    val end_date = format.parse(args(6))
     val validDate = uservisitsTable.filter(line => format.parse(line(2)).compareTo(start_date) >= 0 && format.parse(line(2)).compareTo(end_date) <= 0)
     val rankingPairs = rankingTable.map(line => (line(0), line))
     val uservisitPairs = validDate.map(line => (line(1), line))

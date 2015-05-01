@@ -48,11 +48,7 @@ public class BenchmarkJavaSpark {
 								.parseInt(args[2]);
 					}
 				});
-		// resultRDD.count();
-		System.out.println("10 first results: ");
-		for (String[] line : resultRDD.take(10)) {
-			System.out.println(line[0] + " " + line[1] + " " + line[2]);
-		}
+		System.out.println(resultRDD.count());
 		double ScanQueryRunningTime = (double) (System.nanoTime() - ScanQueryStartTime)
 				/ Math.pow(10, 9);
 
@@ -77,12 +73,8 @@ public class BenchmarkJavaSpark {
 						return x + y;
 					}
 				});
-		// aggregationResult.count();
 
-		System.out.println("Aggregation of records:");
-		for (Tuple2<String, Double> line : aggregationResult.take(10)) {
-			System.out.println(line._1 + " " + line._2);
-		}
+		System.out.println(aggregationResult.count());
 		double AggregationQueryRunningTime = (double) (System.nanoTime() - AggregationQueryStartTime)
 				/ Math.pow(10, 9);
 

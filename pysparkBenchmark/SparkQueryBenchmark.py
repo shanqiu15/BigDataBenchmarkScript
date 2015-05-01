@@ -5,7 +5,7 @@ import datetime
 
 '''
 # spark_query.py file_path column ( < | = | > ) int
-# python SparkQueryBenchmark.py amplab/text/tiny/rankings 50 amplab/text/tiny/uservisits 0 9 1980-01-01 1980-04-01
+# python SparkQueryBenchmark.py amplab/text/tiny/rankings 100 amplab/text/tiny/uservisits 0 6 1980-01-01 1990-01-01
 
 '''
 
@@ -30,18 +30,12 @@ def scan_query(ranking_table, column=1, threshold=50):
     rankings = RankingTable(ranking_table)
     filter_result = rankings.greater(column, threshold)
     result=filter_result.map(lambda x:(x[0],x[1]))
-    result.sortByKey()
-    for r in result.collect():
-        print r
+    print result.count()
 
 def aggregate_query(uservisit_tables, str_start, str_end):
     uservisit_pairs = uservisit_tables.map(lambda x: (x[0][str_start:str_end],float(x[3])))
-    #for r in uservisit_pairs.collect():
-    #    print r
     result = uservisit_pairs.reduceByKey(lambda x, y: x + y)
-    result.sortByKey()
-    for r in result.collect():
-        print r
+    print result.count()
 
 def time_filter(uservisit_table,first_day, last_day):
     fmt = '%Y-%m-%d'
@@ -81,7 +75,6 @@ if __name__ == "__main__":
     join_result = uservisit_pairs.join(ranking_pairs)
     sourceIP_as_key = join_result.map(lambda x:(x[1][0][0], [int(x[1][1][1]), float(x[1][0][3])]))
     group_by_sourceIP = sourceIP_as_key.mapValues(lambda x: (x, 1)).reduceByKey(lambda x, y: (add_each_element(x[0], y[0]), x[1] + y[1]))
-    # #group_result = (totalRevenue, (avgPageRank, sourceIP))
     group_result = group_by_sourceIP.map(lambda x: (x[1][0][1], (float(x[1][0][0])/x[1][1], x[0])))
     result =  group_result.sortByKey(False) #sort by descending order
     print result.take(1)
